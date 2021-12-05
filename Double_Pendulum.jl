@@ -7,7 +7,7 @@ pyplot()
 m1 = 1;
 m2 = 2;
 L1 = 1;
-l2 = 2;
+L2 = 2;
 g = 9.81;
 
 u0 = [pi/1.6; 0; pi/1.8; 0]; #Initial conditions
@@ -15,7 +15,7 @@ u0 = [pi/1.6; 0; pi/1.8; 0]; #Initial conditions
 tfinal = 100.0               #Final time
 
 #Pendulum ODE
-function dbl_pendulum(du,u,p,t)
+function double_pendulum(du,u,p,t)
 
     m1 = p[1];
     m2 = p[2];
@@ -67,3 +67,39 @@ x1_u = sp_x1(t_u);
 y1_u = sp_y1(t_u);
 x2_u = sp_x2(t_u);
 y2_u = sp_y2(t_u);
+
+
+# Animation
+
+L = L1 + L2;
+axis_lim = L*1.2;   # defining the limits of the axes
+
+
+anim = Animation()
+#p = plot([sin,cos], 0, π, size=(200,200))
+
+for i =1:length(t_u)
+    
+    str = string("Time = ", round(tm[i],1), " sec");
+    
+    plot([0,x1_u[i]], [0,y1_u[i]],size=(400,300),xlim=(-axis_lim,axis_lim),ylim=(-axis_lim,1),markersize = 10, markershape = :circle,label ="",axis = []);
+    plot!([x1_u[i],x2_u[i]], [y1_u[i],y2_u[i]],markersize = 10, markershape = :circle,label ="",title = str, title_location = :left, aspect_ratio = :equal);
+    
+    if i > 9
+        plot!([x2_u[i-3:i]], [y2_u[i-3:i]],alpha = 0.15,linewidth = 2, color = :red,label ="");
+        plot!([x2_u[i-5:i-3]], [y2_u[i-5:i-3]],alpha = 0.08,linewidth = 2, color = :red,label ="");
+        plot!([x2_u[i-7:i-5]], [y2_u[i-7:i-5]],alpha = 0.04,linewidth = 2, color = :red, label ="");
+        plot!([x2_u[i-9:i-7]], [y2_u[i-9:i-7]],alpha = 0.01,linewidth = 2, color = :red, label="");
+        
+        
+    end
+    
+    
+    
+    
+    frame(anim)
+end
+
+toc()
+
+gif(anim,fps = 30)
