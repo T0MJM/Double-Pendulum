@@ -14,9 +14,9 @@ from IPython.display import HTML
 from matplotlib import pyplot as plt
 
 
-m1 = 2                 # mass of pendulum 1 (in kg)
+m1 = 10                 # mass of pendulum 1 (in kg)
 m2 = 1                 # mass of pendulum 2 (in kg)
-L1 = 1.4                 # length of pendulum 1 (in meter)
+L1 = 2                 # length of pendulum 1 (in meter)
 L2 = 1                 # length of pendulum 2 (in meter)
 g = 9.8                # gravitatioanl acceleration constant (m/s^2)
 
